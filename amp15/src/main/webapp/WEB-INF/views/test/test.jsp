@@ -9,8 +9,9 @@
 </head>
 <body style="margin: 0px;">
 	<div style="height: 100vh;display:flex; flex-direction: column;">
-		<div style="width:100%;height:150px;background: green;"> 특정 div </div>
-		<div style="flex:1; background: yellow;">특정 div 제외하고 남은 공간 </div>
+		<div style="width:100%;height:150px;background: green;"> 첫 추가div입니다 </div>
+		<div style="flex:1; background: yellow;">첫 삭제 div입니다 </div>
+		<div>첫 수정 div입니다</div>
 	</div>
 </body>
 </html>
