@@ -51,6 +51,7 @@ header a { text-decoration:none; }
 
 <header id="topBar">
 	<!-- 로그인 조인 -->
+<div>ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>
 	<h1> <%=(session.getAttribute("idx")==null)?"<a href='login'>LOGIN JOIN</a> | <a href='main'>MAIN</a>":
 		request.getAttribute("name")+"님 환영합니다  |  <a href='logout'>LOGOUT</a> | <a href=''>알림</a> | <a href=''>구독중</a> | <a href='message'>메시지</a> | <a href='main'>MAIN</a>" %> </h1>
     
