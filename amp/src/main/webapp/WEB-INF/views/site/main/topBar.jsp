@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 메뉴바 -->
+
+
 <script>
-//웹소켓 연결부
+
 
 
 var n = $("#gnb > li:first-child li").length;
@@ -24,12 +26,23 @@ $("#gnb").on("mouseleave",function(){
 });
 
 
-function enterKey(){
+//웹소켓 연결부
+let sock = new SockJS("echo");
+sock.onmessage = onMessage_top;/*상대 또는 본인  메시지 전송 감지시 자동 실행 메서드*/
+sock.onclose = onClose_top;/* 메시지 연결 끊고 싶을때 실행하는 메서드 */
 
-	 if (window.event.keyCode == 13) {
-        location.href='tagSearch?keyword='+$('#searchText').val();
-    }
+function onMessage_top(msg){
+	var json=JSON.parse(msg.data);//msg로 오는 데이터가 json형태의 문자열이 온다. 그문자열을  json 타입으로 바꾸어 roomId,id,message를 추출한다.
+	if(ajaxDo('isMyRoom?roomId='+json.roomId)=='true')
+		$('#message_text').text('메시지(NEW)');
 }
+function onClose_top(){
+	
+}
+
+
+
+
 
 </script>
 <style type="text/css">
@@ -66,7 +79,7 @@ header a { text-decoration:none; }
 header { height:160px; width:100%; border-bottom:2px solid #333; overflow:hidden;  background:#fff; }
 
 
-#gnb { width:1000px; margin:0 auto; }
+#gnb { width:800px; margin:0 auto; }
 #gnb > li { float:left; width:200px; }
 
 #gnb > li.select > a { color:#fff; background:#09F; }
@@ -85,51 +98,48 @@ header { height:160px; width:100%; border-bottom:2px solid #333; overflow:hidden
 <body>
 <header>
 	<!-- 로그인 조인 -->
-	<h1> <%=(session.getAttribute("idx")==null)?"<a href='login'>LOGIN JOIN</a> | <a href='main'>MAIN</a>":
-		request.getAttribute("name")+"님 환영합니다  |  <a href='logout'>LOGOUT</a> | <a href=''>알림</a> | <a href=''>구독중</a> | <a href='message'>메시지</a> | <a href='main'>MAIN</a>" %> </h1>
+	<h1> <%=(session.getAttribute("idx")==null)?"<a href='login'>LOGIN JOIN</a>":
+		request.getAttribute("name")+"님 환영합니다  |  <a href='logout'>LOGOUT</a> | <a href=''>알림</a> | <a href=''>구독중</a> | <a href='message' id='message_text'>메시지</a>" %> </h1>
+		
 
+	
 	<!-- 검색창 -->
 	<script src="https://kit.fontawesome.com/8eb5905426.js" crossorigin="anonymous"></script>
     <div class="search">
     	<i class="fas fa-search"></i>
-    	<input id="searchText" type="text" placeholder="태그를 입력해주세요. ex) 취업" value='<%=request.getParameter("keyword")==null?"":request.getParameter("keyword")%>' onkeydown="enterKey()">
+    	<input type="text">
     </div>
+    
     <!-- 메뉴바 -->
     <ul id="gnb">
-    	<li><a href="tagSearch?keyword=입시/보습">입시/보습</a>
+    	<li><a href="#">MENU1</a>
         	<ul class="sub">
-            	<li><a href="tagSearch?keyword=수학">수학</a></li>
-                <li><a href="tagSearch?keyword=국어">국어</a></li>
-                <li><a href="tagSearch?keyword=한국사">한국사</a></li>
-                <li><a href="tagSearch?keyword=사탐/과탐">사탐/과탐</a></li>
-            </ul>
-        </li>  
-        <li><a href="tagSearch?keyword=취업">취업</a>
-        	<ul class="sub">
-            	<li><a href="tagSearch?keyword=IT">IT</a></li>
+            	<li><a href="#">SUB1-1</a></li>
+                <li><a href="#">SUB1-2</a></li>
+                <li><a href="#">SUB1-3</a></li>
+                <li><a href="#">SUB1-4</a></li>
             </ul>
         </li>
-        <li><a href="tagSearch?keyword=외국어">외국어</a>
+        <li><a href="#">MENU2</a>
         	<ul class="sub">
-            	<li><a href="tagSearch?keyword=영어">영어</a></li>
-                <li><a href="tagSearch?keyword=일본어">일본어</a></li>
-                <li><a href="tagSearch?keyword=중국어">중국어</a></li>
-                <li><a href="tagSearch?keyword=기타언어">기타언어</a></li>
+            	<li><a href="#">SUB2-1</a></li>
+                <li><a href="#">SUB2-2</a></li>
+                <li><a href="#">SUB2-3</a></li>
             </ul>
         </li>
-        <li><a href="tagSearch?keyword=예체능">예체능</a>
+        <li><a href="#">MENU3</a>
         	<ul class="sub">
-            	<li><a href="tagSearch?keyword=미술(입시)">미술(입시)</a></li>
-                <li><a href="tagSearch?keyword=음악(입시)">음악(입시)</a></li>
-                <li><a href="tagSearch?keyword=체육">체육</a></li>
+            	<li><a href="#">SUB3-1</a></li>
+                <li><a href="#">SUB3-2</a></li>
+                <li><a href="#">SUB3-3</a></li>
+                <li><a href="#">SUB3-4</a></li>
             </ul>
         </li>
-        <li><a href="tagSearch?keyword=취미">취미</a>
+        <li><a href="#">MENU4</a>
         	<ul class="sub">
-            	<li><a href="tagSearch?keyword=요리">요리</a></li>
-                <li><a href="tagSearch?keyword=제빵">제빵</a></li>
-                <li><a href="tagSearch?keyword=음악(취미)">음악(취미)</a></li>
-                <li><a href="tagSearch?keyword=미술(취미)">미술(취미)</a></li>
+            	<li><a href="#">SUB4-1</a></li>
+                <li><a href="#">SUB4-2</a></li>
+                <li><a href="#">SUB4-3</a></li>
             </ul>
         </li>
     </ul>

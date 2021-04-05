@@ -36,16 +36,12 @@
 	<bean id="messageDao" class="com.jj.dao.MessageDao">
 		<constructor-arg name="sqlSession" ref="sqlSession"></constructor-arg>
 	</bean>
-	<bean id="academyDao" class="com.jj.dao.AcademyDao">
-		<constructor-arg name="sqlSession" ref="sqlSession"></constructor-arg>
-	</bean>
 
 	
 	<!-- Vo 객체 -->
 	<bean id="vo" class="com.jj.vo.TestVo"></bean>
 	<bean id="memberVo" class="com.jj.vo.MemberVo"></bean>
 	<bean id="messageVo" class="com.jj.vo.MessageVo"></bean>
-	<bean id="academyVo" class="com.jj.vo.AcademyVo"></bean>
 
 		
 </beans>
