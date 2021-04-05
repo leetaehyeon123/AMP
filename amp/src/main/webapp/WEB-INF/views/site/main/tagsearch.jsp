@@ -1,5 +1,8 @@
+<%@page import="com.jj.vo.AcademyVo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%ArrayList<AcademyVo> list= (ArrayList<AcademyVo>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,45 +10,19 @@
 <title>Insert title here</title>
 <!-- 2021-02-27 김용민 검색창 태그 수정 추가해야함 -->
 <style type="text/css">
-/* 검색창 */
-.search {
-    position: relative;
-    text-align: center;
-    width: 400px;
-    margin: 0 auto;
-}
-
-input {
-    width: 100%;
-    border: 1px solid #bbb;
-    margin: 10px 0;
-    padding: 10px 12px;
-}
-
-.fa-search {
-    position: absolute;
-    left: 390px;
-    top: 20px;
-    margin: 0;
-}
 /* 태그 */
-body {
-  font: 12px/1.5 'PT Sans', serif;
-  margin: 25px;
-}
-
-.tags {
+.academytags {
   list-style: none;
   margin: 0;
   overflow: hidden; 
   padding: 0;
 }
 
-.tags li {
+.academytags li {
   float: left; 
 }
 
-.tag {
+.academytag {
   background: #eee;
   border-radius: 3px 0 0 3px;
   color: #999;
@@ -59,7 +36,7 @@ body {
   -webkit-transition: color 0.2s;
 }
 
-.tag::before {
+.academytag::before {
   background: #fff;
   border-radius: 10px;
   box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
@@ -71,7 +48,7 @@ body {
   top: 10px;
 }
 
-.tag::after {
+.academytag::after {
   background: #fff;
   border-bottom: 13px solid transparent;
   border-left: 10px solid #eee;
@@ -82,35 +59,31 @@ body {
   top: 0;
 }
 
-.tag:hover {
+.academytag:hover {
   background-color: crimson;
   color: white;
 }
 
-.tag:hover::after {
+.academytag:hover::after {
    border-left-color: crimson; 
 }
 </style>
 </head>
 <body>
-	<!-- 검색창 -->
-	<script src="https://kit.fontawesome.com/8eb5905426.js" crossorigin="anonymous"></script>
-    <div class="search">
-    	<i class="fas fa-search"></i>
-    	<input type="text">
-    </div>
-	
-	<!-- 태그 -->
-	<h1>ㄱ</h1>
-	
-	<h2>가 용민 영어학원</h2>
-	<ul class="tags">
-	  <li><a href="#" class="tag">입시/보습</a></li>
-	  <li><a href="#" class="tag">외국어</a></li>
-	  <li><a href="#" class="tag">성인</a></li>
-	 </ul>
-	
-	<h2>가 용민 수학학원</h2>
-		<a href="#" class="tag">입시/보습</a>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('topBar?keyword=<%= request.getParameter("keyword")%>','#topBarDiv');</script><div id="topBarDiv"></div>
+		
+<%for(int i=0;i<list.size();i++){ %>
+<ul class="academytags">
+	<li><a href="academyMain?academyname=<%= list.get(i).getName()%>" class="academyname"><%= list.get(i).getName()%></a></li><br>
+	<%String [] tags= list.get(i).getTag().split(",");%>
+	<%for(int j=0;j<tags.length;j++){ %>
+	<li><a href="tagSearch?keyword=<%=tags[j] %>" class="academytag"><%= tags[j]%></a></li>
+	<%}%>
+</ul>
+<%}%>
+
+
 </body>
 </html>
