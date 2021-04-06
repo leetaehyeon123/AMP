@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jj.dao.MemberDao;
 import com.jj.vo.MemberVo;
+import com.jj.dao.AcademyDao;
+import com.jj.vo.AcademyVo;
 
 /**
  * Handles requests for the application home page.
@@ -23,6 +25,10 @@ public class MainController {
 	MemberDao memberDao;
 	@Autowired
 	MemberVo memberVo;
+	@Autowired
+	AcademyDao academyDao;
+	@Autowired
+	AcademyVo academyVo;
 	
 	@RequestMapping(value = {"/","/main"})
 	public String sitemain(Locale locale, Model model) {
@@ -48,11 +54,27 @@ public class MainController {
 		
 		return "site/main/topBar";
 	}
-	/* 2021-02-27 김용민 */
-	@RequestMapping(value = "/tagSearch", method = RequestMethod.GET)
-	public String tagsearch(Locale locale, Model model) {
 	
+	@RequestMapping(value = "/tagSearch", method = RequestMethod.GET)
+	public String tagsearch(Locale locale, Model model, String keyword) {
+	
+		System.out.println(keyword);
+		academyVo.setKeyword(keyword);
+		ArrayList<AcademyVo> list=(ArrayList<AcademyVo>)academyDao.selectTag(academyVo);
+		model.addAttribute("list",list);
 		
 		return "site/main/tagsearch";
+	}
+	
+	@RequestMapping(value = "/academyMain_topBar")
+	public String academyMain_topBar(Locale locale, Model model,HttpSession session) {
+		if(session.getAttribute("idx")!=null) {
+			System.out.println(session.getAttribute("idx")+"");
+			memberVo.setIdx(Integer.parseInt(session.getAttribute("idx")+""));
+			ArrayList<MemberVo> list= (ArrayList<MemberVo>) memberDao.selectAllByIdx(memberVo);
+			model.addAttribute("name",list.get(0).getName());
+		}
+		
+		return "academy/main/academyMain_topBar";
 	}
 }
