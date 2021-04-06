@@ -82,6 +82,7 @@ public class MemberController {
 		return "site/member/agree";
 	}
 
+
 	@RequestMapping(value = "/login")
 	public String login(Locale locale, Model model) {
 	
@@ -284,68 +285,7 @@ public class MemberController {
 		}
 		
 	}
-	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
-	@ResponseBody
-	public String idCheck(Locale locale, Model model,String id) throws Exception {
 
-		System.out.println(id+"아이디");
-		memberVo.setId(id);
-		ArrayList<MemberVo> list =(ArrayList<MemberVo>)memberDao.selectIdxById(memberVo);
-		
-		if(list.size()==0) {
-			System.out.println("사용가능 아이디");
-			return "true";
-		}else {
-			if(list.size()!=0)
-				System.out.println("중복 아이디");
-			return "false";
-		}
-	
-		
-	}
-	
-	
-	/*=========================== 아이디비번 찾기=========================================== */
-	@RequestMapping(value="findid.do")
-	@ResponseBody
-	public String findid(Model model, String phone, String name) {
-		
-		memberVo.setName(name);
-		memberVo.setPhone(phone);
-		
-		try {
-			
-			ArrayList<MemberVo> list =  (ArrayList<MemberVo>)memberDao.selectByNamePhone(memberVo);
-					
-			String getid = list.get(0).getId();
-			memberVo.setId(getid);
-			
-			if(getid == null || getid.equals("")|| getid.equals(null)) { // 첫번째 인덱스(id)가 null일 경우 false를 반환하고 null이 아닐경우 true로 반환한다
-				return "false";
-			}else {			
-				return getid;
-			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return "false";
-		
-	}
-	
-	@RequestMapping(value="findpw.do")
-	public String findid(Model model) {
-		
-		
-		
-		return "true";
-	}
-		@RequestMapping(value="findIdpw")
-		public String findIdpw(Model model) {
-			
-			return "site/member/findIdpw";
-		}
 	
 	
 	

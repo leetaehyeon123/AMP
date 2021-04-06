@@ -39,11 +39,15 @@
 	<bean id="academyDao" class="com.jj.dao.AcademyDao">
 		<constructor-arg name="sqlSession" ref="sqlSession"></constructor-arg>
 	</bean>
+	<bean id="findidpwDao" class="com.jj.dao.FindidpwDao">
+		<constructor-arg name="sqlSession" ref="sqlSession"/>
+	</bean>
 	
 	<!-- Vo 객체 -->
 	<bean id="vo" class="com.jj.vo.TestVo"></bean>
 	<bean id="memberVo" class="com.jj.vo.MemberVo"></bean>
 	<bean id="messageVo" class="com.jj.vo.MessageVo"></bean>
 	<bean id="academyVo" class="com.jj.vo.AcademyVo"></bean>
+	<bean id="findidpwVo" class="com.jj.vo.FindidpwVo"/>
 		
 </beans>
