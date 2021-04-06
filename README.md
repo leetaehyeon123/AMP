@@ -1,1 +1,1 @@
-# AMP
+Academy Management project
