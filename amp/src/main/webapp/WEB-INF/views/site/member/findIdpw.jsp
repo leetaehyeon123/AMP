@@ -195,9 +195,41 @@
 		}
 		
 		
+		/* 21.03.22 진렬 수정 */
+		function send_phone2(url) { //url = smsPage.do
+			
+			if($('#pw_phone_number').val().trim() == "")
+			{
+				alert("번호를 입력해주세요.");
+				$('#pw_phone_number').val('');
+				$('#pw_phone_number').focus();
+			}else{
+					
+				var phone=$('#pw_phone_number').val();
+				var phoneCheck = /^01(0)(\d{4})\d{4}$/;
+					
+				if(phoneCheck.test(phone)){
+					alert("ok");
+					$('#code').focus();
+						
+					url=url+'?to='+$('#pw_phone_number').val()+"&test=pw_code"; // smsPage.do?to=01012345678
+					ajaxDo(url,'');
+					$("#pw_phone_number").attr("readonly",true);
+				}else{
+						alert("핸드폰 번호를 바르게 입력해주세요");
+						$('#pw_phone_number').attr("readonly",false);
+						$('#pw_phone_number').val();
+						$('#pw_phone_number').focus();
+					}
+					
+				}
+		}
+		
+		
+		/* 21.03.22 진렬 수정 */
 		function checkcode(url) { // smsIsCode.do?code=1234
 			
-			url = url+"?code="+$('#code').val().trim();
+			url = url+"?code="+$('#code').val().trim() + "&pw_code=no";
 			
 			if($('#code').val().trim() == ""){
 				
@@ -225,26 +257,108 @@
 					alert("번호를 잘못 입력하셨습니다.");
 					$('#code').focus();
 					$('#code').val('');
+				}			
+			
+			}
+		} //checkcode()
+		
+		
+		
+		
+		/* 21.03.22 진렬 수정 */
+		function checkcode2(url) { // smsIsCode.do?pw_code=1234
+			
+			url = url+"?pw_code="+$('#pw_code').val().trim()+"&code=no";
+			
+			if($('#pw_code').val().trim() == ""){
+				
+				alert("인증번호를 입력해주세요");
+				$('#pw_code').focus();
+				
+			}else{
+				if(ajaxDo(url,'')=='true'){
+					alert("인증이 완료되었습니다");
+					<% session.removeAttribute("pw_code"); %>
+					
+					var find_pw = ajaxDo('check_pw.do?phone='+$("#pw_phone_number").val().trim()+'&id='+$("#pw_check_id").val().trim(),'');
+					if(find_pw == 'true'){
+						
+						$('.email_container').css("display","inline");
+						
+					}else{
+						alert("일치하는 데이터가 없습니다!");
+						location.href="findIdpw.do";
+					}
+					
+				}else{
+					alert("번호를 잘못 입력하셨습니다.");
+					$('#code').focus();
+					$('#code').val('');
+				}			
+			
+			}
+		}
+		
+		
+		
+		// 21.03.15 진렬 수정
+		function send_mail() {
+			if($('#input_email').val().trim() == ""){
+				alert("이메일을 입력해주세요");
+			}else if($('#pw_check_id').val().trim() == ""){
+				alert("아이디를 입력해주세요");
+			}
+			else{
+				alert("성공");
+				var email = $("#input_email").val().trim();
+				var id = $("#pw_check_id").val().trim();
+				
+				location.href="mailSending.do?tomail="+ email + "&id=" + id;
+			}
+		}// send_mail()		
+		
+		
+		
+		// 21.03.22 진렬 수정
+		// 비밀번호 찾기 - 아이디 확인 함수
+		function check_id(url) { // url = check_id.do
+			
+			
+			var id = $("#pw_check_id").val().trim();
+		
+			if(id == ""){
+				alert("아이디를 입력해주세요");
+				$("#pw_check_id").val('');
+				$("#pw_check_id").focus();
+			}else{
+				url = url+"?id="+id;
+				
+				if(ajaxDo(url,'') == 'true'){
+					$('#pw_check_id').attr("readonly","true");
+					$('#send_email_btn').attr("readonly","true");
+					$('#find_number').css("display","inline");
+					$('#find_code').css("display","inline");
+					
+					$('#pw_check_id').attr("disabled","true");
+					$('#send_email_btn').attr("disabled","true");
+				}else{
+					alert("존재하지 않는 아이디 입니다.");
+					$("#pw_check_id").val('');
+					$("#pw_check_id").focus();
 				}
 			}
+			
+		} // check_id()
 		
-			
-			
-			
-		}
+		
 	</script>
 </head>
 
-<body style="height: 100vh;display:flex; flex-direction: column;" >
+<body>
 
-
-<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
-<script type="text/javascript">ajaxLoad('topBar','#topBarDiv');</script><div id="topBarDiv"></div>
-	
 	<div style=" display: grid;
-  place-items: center; height: 100%; flex: 1;">
+  place-items: center; height: 100vh;">
 		<div style="border: 1px solid black; padding: 30px">
-			
 			<form action="" method="get">
 				<div class="row_gruop" style="border: 1px solid blue; margin-bottom: 30px">
 					<p class="find_title">아이디찾기</p>
@@ -295,17 +409,41 @@
 					</h3>
 					
 					<span>
-						<input type="text" id="pw_find_id" class="pw_find_id" placeholder="아이디" />
+						<input type="text" id="pw_check_id" class="pw_find_id" placeholder="아이디" />
+						<input type="button" id="send_email_btn" class="send_email" value="확인" onclick="check_id('check_id.do')" />
 					</span>
 				</div>
 				
-				<div>
+				
+				<div id="find_number" class="phone_number_container" style="display: none">
+					<h3 class="find_title">
+							<label>핸드폰번호</label>
+					</h3>
+					<span>
+						<input type="text" id="pw_phone_number" class="phone_number" placeholder="핸드폰번호(-제외)">
+						<input type="button" id="pw_phone_check" class="phone_check" value="번호 전송" onclick="send_phone2('smsPage.do')">
+					</span>
+				</div>
+					
+				<div id="find_code" class="code_container" style="display: none">
+					<h3 class="find_title">
+						<label>인증번호</label>
+					</h3>
+					<span>
+						<input type="text" id="pw_code" class="code" placeholder="인증번호">
+						<input type="button" id="pw_check_code" class="check_code" value="인증하기" onclick="checkcode2('smsIsCode.do')">
+					</span>					
+				</div>
+				
+				
+				<div class="email_container" style="display: none">
 					<h3 class="find_title">
 						<lable>이메일</lable>
 					</h3>
 					<span>
-						<input type="text" id="pw_find_email" class="pw_find_email" placeholder="이메일입력" />
-						<input type="button" id="send_email" class="send_email" value="전송하기" onclick />
+					<!-- 21.03.15 진렬 수정 -->
+						<input type="text" id="input_email" class="pw_find_email" placeholder="이메일 입력" />
+						<input type="button" id="send_email_btn" class="send_email" value="전송하기" onclick="send_mail()" /> <!-- style=" opacity: 0.6; cursor: not-allowed;" disabled="disabled" -->
 					</span>
 				</div>
 				
