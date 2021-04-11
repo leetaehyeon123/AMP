@@ -170,7 +170,25 @@ public class MemberController {
 		return returnPage;
 		
 	}
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String idCheck(Locale locale, Model model,String id) throws Exception {
 
+		System.out.println(id+"아이디");
+		memberVo.setId(id);
+		ArrayList<MemberVo> list =(ArrayList<MemberVo>)memberDao.selectIdxById(memberVo);
+		
+		if(list.size()==0) {
+			System.out.println("사용가능 아이디");
+			return "true";
+		}else {
+			if(list.size()!=0)
+				System.out.println("중복 아이디");
+			return "false";
+		}
+	
+		
+	}
 	/* 핸드폰 인증으로 기존가입확인 */
 	@RequestMapping(value = "/isMember", method = RequestMethod.GET)
 	@ResponseBody
