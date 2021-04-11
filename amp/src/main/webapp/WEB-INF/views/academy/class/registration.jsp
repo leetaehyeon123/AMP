@@ -41,7 +41,7 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
-<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyidx=<%=request.getParameter("academyidx") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
 
 	<div id="registration_container">
 		<div id="registration_div">

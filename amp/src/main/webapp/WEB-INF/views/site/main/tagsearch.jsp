@@ -76,7 +76,7 @@
 		
 <%for(int i=0;i<list.size();i++){ %>
 <ul class="academytags">
-	<li><a href="academyMain?academyname=<%= list.get(i).getName()%>" class="academyname"><%= list.get(i).getName()%></a></li><br>
+	<li><a href="academyMain?academyidx=<%= list.get(i).getIdx()%>" class="academyidx"><%= list.get(i).getName()%></a></li><br>
 	<%String [] tags= list.get(i).getTag().split(",");%>
 	<%for(int j=0;j<tags.length;j++){ %>
 	<li><a href="tagSearch?keyword=<%=tags[j] %>" class="academytag"><%= tags[j]%></a></li>
