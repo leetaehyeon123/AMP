@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>강사/수강생 관리 (승인/탈퇴)</title>
+<link rel="stylesheet" href="resources/CSS/academy/main/main_banner.css" type="text/css">
 <style type="text/css">
 	#rim_container{
 	display: grid; place-items:center;
@@ -70,6 +71,9 @@
 </style>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+
 	<div id="rim_container">
 		<div id="rim_div">
 			<script src="https://kit.fontawesome.com/8eb5905426.js" crossorigin="anonymous"></script>

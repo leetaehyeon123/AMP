@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>수강신청</title>
+<link rel="stylesheet" href="resources/CSS/academy/main/main_banner.css" type="text/css">
 <style type="text/css">
 	#registration_container{
 	display: grid; place-items:center;
@@ -39,6 +40,9 @@
 </style>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+
 	<div id="registration_container">
 		<div id="registration_div">
 			<h2>수강신청</h2>

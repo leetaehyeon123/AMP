@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>수강 정보 관리</title>
+<link rel="stylesheet" href="resources/CSS/academy/main/main_banner.css" type="text/css">
 <style type="text/css">
 	#classList_container{
 	display: grid; place-items:center;
@@ -76,6 +77,9 @@
 </style>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+
 	<div id="classList_container">
 		<div id="classList_div">
 			<!-- 검색창 -->

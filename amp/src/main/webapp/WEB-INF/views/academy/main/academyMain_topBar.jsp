@@ -48,42 +48,42 @@ header a { text-decoration:none; }
 </head>
 <body>
 
-
+<% String academyname = request.getParameter("academyname"); %>
 <header id="topBar">
 	<!-- 로그인 조인 -->
 	<h1> <%=(session.getAttribute("idx")==null)?"<a href='login'>LOGIN JOIN</a> | <a href='main'>MAIN</a>":
 		request.getAttribute("name")+"님 환영합니다  |  <a href='logout'>LOGOUT</a> | <a href=''>알림</a> | <a href=''>구독중</a> | <a href='message'>메시지</a> | <a href='main'>MAIN</a>" %> </h1>
     
     <!-- 메뉴바 -->
-    <div class="top_banner">상단 배너</div>
+   <div class="top_banner">상단 배너</div>
     <ul id="gnb">
-    	<li><a href="#">수강</a>
+    	<li><a>수강</a>
         	<ul class="sub">
-            	<li><a href="registration">수강료 신청 및 수강료 조회</a></li>
-                <li><a href="consult">수강상담</a></li>
+            	<li><a href="registration?academyname=<%=academyname%>">수강료 신청 및 수강료 조회</a></li>
+                <li><a href="consult?academyname=<%=academyname%>">수강상담</a></li>
 				<li><a href="#"></a></li>
                 <li><a href="#"></a></li>
             </ul>
         </li>
         
-        <li><a href="#">소통</a>
+        <li><a>소통</a>
         	<ul class="sub">
             	<li><a href="message">메세지</a></li>
-                <li><a href="notice">공지사항</a></li>
+                <li><a href="notice?academyname=<%=academyname%>">공지사항</a></li>
             </ul>
         </li>
-        <li><a href="#">강의</a>
+        <li><a>강의</a>
         	<ul class="sub">
-            	<li><a href="myclass">수강중인 강의(출결)</a></li>
+            	<li><a href="myclass?academyname=<%=academyname%>">수강중인 강의(출결)</a></li>
             
             </ul>
         </li>
-        <li><a href="#">관리</a>
+        <li><a>관리</a>
         	<ul class="sub">
             	<li><a href="#">Main 관리</a></li>
-                <li><a href="rim">강사/수강생 관리</a></li>
-                <li><a href="classList">수강정보 관리</a></li>
-                <li><a href="consultList">수강상담 관리</a></li>
+                <li><a href="rim?academyname=<%=academyname%>">강사/수강생 관리</a></li>
+                <li><a href="classList?academyname=<%=academyname%>">수강정보 관리</a></li>
+                <li><a href="consultList?academyname=<%=academyname%>">수강상담 관리</a></li>
             </ul>
         </li>
     </ul>

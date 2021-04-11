@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/CSS/academy/main/main_banner.css" type="text/css">
 <style type="text/css">
 	#consultList_container{
 	display: grid; place-items:center;
@@ -28,6 +29,9 @@
 </head>
 
 <body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+
 <div id="consultList_container">
 	<div>
 		<h2>수강 상담 관리</h2>

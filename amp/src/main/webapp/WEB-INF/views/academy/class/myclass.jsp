@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/CSS/academy/main/main_banner.css" type="text/css">
 <style type="text/css">
 	#myclass_container{
 	display: grid; place-items:center;
@@ -28,6 +29,9 @@
 </style>
 </head>
 <body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script><script src="resources/JS/ajax/ajax.js"></script>
+<script type="text/javascript">ajaxLoad('academyMain_topBar?academyname=<%=request.getParameter("academyname") %>','#academyMain_topBarDiv');</script><div id="academyMain_topBarDiv"></div>
+
 	<div id="myclass_container">
 		<div id="myclass_div">
 			<h2>내강의</h2>
