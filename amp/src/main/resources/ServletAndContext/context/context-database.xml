@@ -42,6 +42,12 @@
 	<bean id="findidpwDao" class="com.jj.dao.FindidpwDao">
 		<constructor-arg name="sqlSession" ref="sqlSession"/>
 	</bean>
+	<bean id="classDao" class="com.jj.dao.ClassDao">
+		<constructor-arg name="sqlSession" ref="sqlSession"></constructor-arg>
+	</bean>
+	<bean id="roomDao" class="com.jj.dao.RoomDao">
+		<constructor-arg name="sqlSession" ref="sqlSession"></constructor-arg>
+	</bean>
 	
 	<!-- Vo 객체 -->
 	<bean id="vo" class="com.jj.vo.TestVo"></bean>
@@ -49,5 +55,6 @@
 	<bean id="messageVo" class="com.jj.vo.MessageVo"></bean>
 	<bean id="academyVo" class="com.jj.vo.AcademyVo"></bean>
 	<bean id="findidpwVo" class="com.jj.vo.FindidpwVo"/>
-		
+	<bean id="classVo" class="com.jj.vo.ClassVo"></bean>
+	<bean id="roomVo" class="com.jj.vo.RoomVo"></bean>
 </beans>
