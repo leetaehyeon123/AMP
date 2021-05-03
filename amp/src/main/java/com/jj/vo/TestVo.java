@@ -17,7 +17,7 @@ public class TestVo {
 		this.name = name;
 	}
 
-
+	string kim;
 
 
 }
